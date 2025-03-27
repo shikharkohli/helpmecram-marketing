@@ -18,9 +18,13 @@ export function EmailCapture() {
   // Fetch user email if logged in
   useEffect(() => {
     const fetchUserEmail = async () => {
-      const user = await getCurrentUser();
-      if (user?.email) {
-        setEmail(user.email);
+      try {
+        const user = await getCurrentUser();
+        if (user?.email) {
+          setEmail(user.email);
+        }
+      } catch (error) {
+        console.error("Error fetching user email:", error);
       }
     };
     
