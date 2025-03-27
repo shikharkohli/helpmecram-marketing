@@ -1,19 +1,14 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-// Check if environment variables are available
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Use hard-coded values for development/testing purposes
+const supabaseUrl = 'https://ijvvdcvzgjsjivustdgs.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqdnZkY3Z6Z2pzaml2dXN0ZGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMwNzY3ODksImV4cCI6MjA1ODY1Mjc4OX0.8RiKCEiJMIarbpiw7gA8G9Gbal1MvShm1vqCshqx-zs';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase environment variables. Please check your .env file or environment configuration.');
-}
-
-// Create a supabase client with fallback to empty strings to prevent runtime errors
-// The client won't work properly, but at least the app won't crash
+// Create a supabase client with the hard-coded values
 export const supabase = createClient(
-  supabaseUrl || 'https://placeholder-url.supabase.co',
-  supabaseAnonKey || 'placeholder-key'
+  supabaseUrl,
+  supabaseAnonKey
 );
 
 // Helper function to get the current user

@@ -48,10 +48,11 @@ export function EmailCapture() {
       return;
     }
     
-    if (!captchaVerified) {
-      toast.error("Please verify that you are not a robot");
-      return;
-    }
+    // TEMPORARILY DISABLED FOR TESTING
+    // if (!captchaVerified) {
+    //   toast.error("Please verify that you are not a robot");
+    //   return;
+    // }
     
     setLoading(true);
     
@@ -92,7 +93,7 @@ export function EmailCapture() {
           />
           <Button 
             type="submit" 
-            disabled={loading || submitted || !captchaVerified}
+            disabled={loading || submitted}
             className="transition-all duration-300 hover:shadow-lg"
           >
             {loading ? (
