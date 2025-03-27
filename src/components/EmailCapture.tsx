@@ -57,6 +57,7 @@ export function EmailCapture() {
     setLoading(true);
     
     try {
+      console.log(`Submitting email: ${email}`);
       const result = await addToWaitlist(email);
       
       if (result.success) {
@@ -69,8 +70,8 @@ export function EmailCapture() {
         toast.error(result.error || "Failed to join waitlist. Please try again.");
       }
     } catch (error) {
-      toast.error("Something went wrong. Please try again later.");
       console.error("Waitlist submission error:", error);
+      toast.error("Something went wrong. Please try again later.");
     } finally {
       setLoading(false);
     }
