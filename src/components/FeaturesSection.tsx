@@ -1,0 +1,64 @@
+
+import { FeatureCard } from "./FeatureCard";
+import { Brain, Clock, Lightbulb, Map, Repeat, Sparkles } from "lucide-react";
+
+export function FeaturesSection() {
+  return (
+    <section id="features" className="section-spacing bg-background">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+            Learn Anything, Remember Everything
+          </h2>
+          <p className="text-xl text-muted-foreground">
+            Our AI-powered platform transforms how you study, using cutting-edge cognitive science to make learning efficient and lasting.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <FeatureCard 
+            icon={Brain}
+            title="Mind Palace Technique"
+            description="Build powerful spatial memory frameworks to store and recall complex information with remarkable accuracy."
+            delay={100}
+          />
+          
+          <FeatureCard 
+            icon={Lightbulb}
+            title="Mnemonic Generation"
+            description="Create custom memory aids, from acronyms to visual associations, tailored to your personal learning style."
+            delay={200}
+          />
+          
+          <FeatureCard 
+            icon={Repeat}
+            title="Spaced Repetition"
+            description="Review content at scientifically optimized intervals to maximize long-term retention and minimize forgetting."
+            delay={300}
+          />
+          
+          <FeatureCard 
+            icon={Map}
+            title="Concept Mapping"
+            description="Visualize connections between ideas and develop a holistic understanding of complex subject matter."
+            delay={400}
+          />
+          
+          <FeatureCard 
+            icon={Clock}
+            title="Time-Optimized Study"
+            description="AI algorithms personalize your study schedule to maximize efficiency based on your learning patterns."
+            delay={500}
+          />
+          
+          <FeatureCard 
+            icon={Sparkles}
+            title="AI Content Transformation"
+            description="Upload your notes or textbooks and let AI restructure them into formats optimized for maximum recall."
+            delay={600}
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
