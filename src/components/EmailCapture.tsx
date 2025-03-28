@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Country codes for SMS
 const countryCodes = [
   { code: "+1", country: "United States/Canada" },
   { code: "+44", country: "United Kingdom" },
@@ -38,11 +36,11 @@ export function EmailCapture() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [showCaptcha, setShowCaptcha] = useState(false);
   const [captchaVerified, setCaptchaVerified] = useState(false);
   const [phoneError, setPhoneError] = useState("");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   
-  // Fetch user email if logged in
   useEffect(() => {
     const fetchUserEmail = async () => {
       try {
@@ -65,17 +63,16 @@ export function EmailCapture() {
   const resetCaptcha = () => {
     setCaptchaVerified(false);
     recaptchaRef.current?.reset();
+    setShowCaptcha(false);
   };
 
   const validatePhoneNumber = (number: string): boolean => {
-    // Phone validation - basic check for valid digits
-    if (!number) return true; // Optional field, so empty is valid
+    if (!number) return true;
     const phoneRegex = /^\d{6,15}$/;
     return phoneRegex.test(number);
   };
 
   const handlePhoneChange = (value: string) => {
-    // Only allow digits
     const digitsOnly = value.replace(/\D/g, '');
     setPhoneNumber(digitsOnly);
     
@@ -99,11 +96,15 @@ export function EmailCapture() {
       return;
     }
     
-    // TEMPORARILY DISABLED FOR TESTING
-    // if (!captchaVerified) {
-    //   toast.error("Please verify that you are not a robot");
-    //   return;
-    // }
+    if (!showCaptcha) {
+      setShowCaptcha(true);
+      return;
+    }
+    
+    if (!captchaVerified) {
+      toast.error("Please verify that you are not a robot");
+      return;
+    }
     
     setLoading(true);
     
@@ -115,7 +116,6 @@ export function EmailCapture() {
       if (result.success) {
         setSubmitted(true);
         toast.success("Thank you for your interest! We'll notify you when we launch.");
-        // Reset form
         setEmail("");
         setName("");
         setPhoneNumber("");
@@ -219,15 +219,17 @@ export function EmailCapture() {
           </Button>
         </div>
         
-        <div className="flex justify-center">
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} // Default is Google's test key
-            onChange={onCaptchaChange}
-            theme="dark"
-            size="normal"
-          />
-        </div>
+        {showCaptcha && (
+          <div className="flex justify-center">
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} 
+              onChange={onCaptchaChange}
+              theme="dark"
+              size="normal"
+            />
+          </div>
+        )}
       </form>
     </div>
   );
