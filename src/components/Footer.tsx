@@ -12,10 +12,10 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Brain className="h-6 w-6 text-primary" />
-              <span className="text-lg font-display font-semibold">StudyNinja</span>
+              <span className="text-lg font-display font-semibold">HelpMeCram</span>
             </div>
             <p className="text-muted-foreground mb-4">
-              Revolutionizing learning with AI and cognitive science. Learn smarter, not harder.
+              Revolutionizing exam prep with AI and cognitive science. Cram smarter, not harder.
             </p>
             <div className="flex gap-4">
               <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
@@ -68,7 +68,7 @@ export function Footer() {
         </div>
         
         <div className="pt-8 border-t border-border text-center text-muted-foreground">
-          <p>&copy; {year} StudyNinja. All rights reserved.</p>
+          <p>&copy; {year} HelpMeCram. All rights reserved.</p>
         </div>
       </div>
     </footer>

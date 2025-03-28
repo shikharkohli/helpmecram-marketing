@@ -23,7 +23,7 @@ export function Header() {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Brain className="h-8 w-8 text-primary" />
-          <span className="text-xl font-display font-semibold">StudyNinja</span>
+          <span className="text-xl font-display font-semibold">HelpMeCram</span>
         </div>
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex items-center gap-6">

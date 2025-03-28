@@ -1,10 +1,19 @@
 
 import { AlertCircle } from "lucide-react";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function DevBanner() {
   const [isVisible, setIsVisible] = useState(true);
+  
+  // Auto-dismiss the banner after 10 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+    }, 10000);
+    
+    return () => clearTimeout(timer);
+  }, []);
   
   if (!isVisible) return null;
   
@@ -17,7 +26,7 @@ export function DevBanner() {
         <div className="flex-1">
           <h3 className="font-semibold text-sm">Currently in Development</h3>
           <p className="text-sm text-muted-foreground mt-1">
-            StudyNinja is under active development. Sign up to be notified when we launch!
+            HelpMeCram is under active development. Sign up to be notified when we launch!
           </p>
         </div>
         <Button 

@@ -9,6 +9,7 @@ import { addToWaitlist } from "@/lib/waitlistService";
 import { getCurrentUser } from "@/lib/supabase";
 
 export function EmailCapture() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -57,14 +58,15 @@ export function EmailCapture() {
     setLoading(true);
     
     try {
-      console.log(`Submitting email: ${email}`);
-      const result = await addToWaitlist(email);
+      console.log(`Submitting email: ${email}, name: ${name}`);
+      const result = await addToWaitlist(email, name);
       
       if (result.success) {
         setSubmitted(true);
         toast.success("Thank you for your interest! We'll notify you when we launch.");
         // Reset form
         setEmail("");
+        setName("");
         resetCaptcha();
       } else {
         toast.error(result.error || "Failed to join waitlist. Please try again.");
@@ -83,34 +85,46 @@ export function EmailCapture() {
         onSubmit={handleSubmit} 
         className="flex flex-col gap-4 p-3"
       >
-        <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-col gap-2">
           <Input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 border-0 shadow-none focus-visible:ring-0 bg-transparent"
+            type="text"
+            placeholder="Your name (optional)"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="border-0 shadow-none focus-visible:ring-0 bg-transparent"
             disabled={loading || submitted}
           />
-          <Button 
-            type="submit" 
-            disabled={loading || submitted}
-            className="transition-all duration-300 hover:shadow-lg"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> 
-                Submitting
-              </>
-            ) : submitted ? (
-              <>
-                <CheckCircle className="mr-2 h-4 w-4" /> 
-                Subscribed
-              </>
-            ) : (
-              "Notify Me"
-            )}
-          </Button>
+          
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 border-0 shadow-none focus-visible:ring-0 bg-transparent"
+              disabled={loading || submitted}
+              required
+            />
+            <Button 
+              type="submit" 
+              disabled={loading || submitted}
+              className="transition-all duration-300 hover:shadow-lg"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> 
+                  Submitting
+                </>
+              ) : submitted ? (
+                <>
+                  <CheckCircle className="mr-2 h-4 w-4" /> 
+                  Subscribed
+                </>
+              ) : (
+                "Notify Me"
+              )}
+            </Button>
+          </div>
         </div>
         
         <div className="flex justify-center">

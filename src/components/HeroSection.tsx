@@ -17,11 +17,11 @@ export function HeroSection() {
         </div>
         
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 animate-fade-in" style={{ animationDelay: "200ms" }}>
-          Learn Smarter with <span className="text-primary">Science-Based</span> Methods
+          Cram Smarter with <span className="text-primary">Science-Based</span> Methods
         </h1>
         
         <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: "400ms" }}>
-          Supercharge your learning with AI-powered study tools that use proven techniques like mind palaces, mnemonics, and spaced repetition.
+          Supercharge your exam prep with AI-powered study tools that use proven techniques like mind palaces, mnemonics, and spaced repetition.
         </p>
         
         <div className="mb-12 max-w-md mx-auto animate-fade-in" style={{ animationDelay: "600ms" }}>
