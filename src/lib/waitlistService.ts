@@ -5,10 +5,11 @@ export interface WaitlistEntry {
   id?: string;
   email: string;
   name?: string;
+  phone?: string;
   created_at?: string;
 }
 
-export const addToWaitlist = async (email: string, name?: string): Promise<{success: boolean; error?: string}> => {
+export const addToWaitlist = async (email: string, name?: string, phone?: string): Promise<{success: boolean; error?: string}> => {
   try {
     // Check if the Supabase client is properly initialized
     if (!supabase || typeof supabase.from !== 'function') {
@@ -22,7 +23,7 @@ export const addToWaitlist = async (email: string, name?: string): Promise<{succ
     // First attempt to insert with RLS bypass
     const { data, error } = await supabase
       .from('waitlist')
-      .insert([{ email, name }])
+      .insert([{ email, name, phone }])
       .select();
     
     if (error) {
