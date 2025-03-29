@@ -20,13 +20,16 @@ export const addToWaitlist = async (email: string, name?: string, phone?: string
       };
     }
 
+    // Format phone number as a number if provided (or null if not)
+    const phoneNumber = phone ? parseFloat(phone.replace(/\D/g, '')) : null;
+    
     // Insert the waitlist entry into Supabase
     const { data, error } = await supabase
       .from('waitlist')
-      .insert([{ 
-        email, 
-        phonenumber: phone ? phone.replace(/\D/g, '') : null 
-      }])
+      .insert({
+        email,
+        phonenumber: phoneNumber
+      })
       .select();
     
     if (error) {
