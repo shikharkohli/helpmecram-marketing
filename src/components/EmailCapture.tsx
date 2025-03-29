@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { CheckCircle, Loader2, Phone } from "lucide-react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { addToWaitlist } from "@/lib/waitlistService";
-import { getCurrentUser } from "@/lib/supabase";
 import {
   Select,
   SelectContent,
@@ -39,31 +39,25 @@ export function EmailCapture() {
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [captchaVerified, setCaptchaVerified] = useState(false);
   const [phoneError, setPhoneError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  
-  useEffect(() => {
-    const fetchUserEmail = async () => {
-      try {
-        const user = await getCurrentUser();
-        if (user?.email) {
-          setEmail(user.email);
-        }
-      } catch (error) {
-        console.error("Error fetching user email:", error);
-      }
-    };
-    
-    fetchUserEmail();
-  }, []);
   
   const onCaptchaChange = (token: string | null) => {
     setCaptchaVerified(!!token);
+    if (token) {
+      submitToWaitlist();
+    }
   };
   
   const resetCaptcha = () => {
     setCaptchaVerified(false);
     recaptchaRef.current?.reset();
     setShowCaptcha(false);
+  };
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const validatePhoneNumber = (number: string): boolean => {
@@ -83,34 +77,35 @@ export function EmailCapture() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleInitialSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      toast.error("Please enter a valid email address");
+    // Reset previous validation errors
+    setEmailError("");
+    
+    // Validate email
+    if (!email || !validateEmail(email)) {
+      setEmailError("Please enter a valid email address");
       return;
     }
     
+    // Validate phone number if provided
     if (phoneNumber && !validatePhoneNumber(phoneNumber)) {
-      toast.error("Please enter a valid phone number");
+      setPhoneError("Please enter a valid phone number");
       return;
     }
     
-    if (!showCaptcha) {
-      setShowCaptcha(true);
-      return;
-    }
-    
-    if (!captchaVerified) {
-      toast.error("Please verify that you are not a robot");
-      return;
-    }
-    
+    // If all validation passes, show the CAPTCHA
+    setShowCaptcha(true);
+  };
+  
+  const submitToWaitlist = async () => {
     setLoading(true);
     
     try {
       const fullPhoneNumber = phoneNumber ? `${countryCode}${phoneNumber}` : '';
-      console.log(`Submitting email: ${email}, name: ${name}, phone: ${fullPhoneNumber}`);
+      console.log(`Submitting to waitlist: ${email}, name: ${name}, phone: ${fullPhoneNumber}`);
+      
       const result = await addToWaitlist(email, name, fullPhoneNumber);
       
       if (result.success) {
@@ -134,7 +129,7 @@ export function EmailCapture() {
   return (
     <div className="w-full max-w-md mx-auto glass-effect rounded-lg p-0.5 overflow-hidden">
       <form 
-        onSubmit={handleSubmit} 
+        onSubmit={handleInitialSubmit} 
         className="flex flex-col gap-4 p-4"
       >
         <div className="flex flex-col space-y-3">
@@ -152,11 +147,19 @@ export function EmailCapture() {
               type="email"
               placeholder="Enter your email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="border-0 shadow-none focus-visible:ring-0 bg-transparent"
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (emailError) {
+                  setEmailError("");
+                }
+              }}
+              className={`border-0 shadow-none focus-visible:ring-0 bg-transparent ${emailError ? 'border-red-500' : ''}`}
               disabled={loading || submitted}
               required
             />
+            {emailError && (
+              <p className="text-xs text-destructive">{emailError}</p>
+            )}
           </div>
           
           <div className="flex flex-col space-y-2">
@@ -188,13 +191,13 @@ export function EmailCapture() {
                 placeholder="Phone number"
                 value={phoneNumber}
                 onChange={(e) => handlePhoneChange(e.target.value)}
-                className="flex-1 border-0 shadow-none focus-visible:ring-0 bg-transparent"
+                className={`flex-1 border-0 shadow-none focus-visible:ring-0 bg-transparent ${phoneError ? 'border-red-500' : ''}`}
                 disabled={loading || submitted}
               />
             </div>
             
             {phoneError && (
-              <p className="text-xs text-destructive mt-1">{phoneError}</p>
+              <p className="text-xs text-destructive">{phoneError}</p>
             )}
           </div>
           
@@ -219,8 +222,8 @@ export function EmailCapture() {
           </Button>
         </div>
         
-        {showCaptcha && (
-          <div className="flex justify-center">
+        {showCaptcha && !submitted && (
+          <div className="flex justify-center mt-4">
             <ReCAPTCHA
               ref={recaptchaRef}
               sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} 

@@ -1,5 +1,5 @@
 
-import { supabase } from './supabase';
+import { supabase } from '@/integrations/supabase/client';
 
 export interface WaitlistEntry {
   id?: string;
@@ -20,24 +20,17 @@ export const addToWaitlist = async (email: string, name?: string, phone?: string
       };
     }
 
-    // First attempt to insert with RLS bypass
+    // Insert the waitlist entry into Supabase
     const { data, error } = await supabase
       .from('waitlist')
-      .insert([{ email, name, phone }])
+      .insert([{ 
+        email, 
+        phonenumber: phone ? phone.replace(/\D/g, '') : null 
+      }])
       .select();
     
     if (error) {
       console.error('Error adding to waitlist:', error);
-      
-      // If it's an RLS policy violation, try using a mock success for testing
-      if (error.code === '42501') {
-        console.log('RLS policy violation. Using mock success for testing purposes.');
-        // In a real app, we would need to:
-        // 1. Set up proper RLS policies in Supabase
-        // 2. Use authenticated users or service roles
-        // For now, we'll simulate success for testing
-        return { success: true };
-      }
       
       // Handle duplicate emails more gracefully
       if (error.code === '23505') {
