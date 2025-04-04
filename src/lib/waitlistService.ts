@@ -5,11 +5,10 @@ export interface WaitlistEntry {
   id?: string;
   email: string;
   name?: string;
-  phone?: string;
   created_at?: string;
 }
 
-export const addToWaitlist = async (email: string, name?: string, phone?: string): Promise<{success: boolean; error?: string}> => {
+export const addToWaitlist = async (email: string, name?: string): Promise<{success: boolean; error?: string}> => {
   try {
     // Check if the Supabase client is properly initialized
     if (!supabase || typeof supabase.from !== 'function') {
@@ -19,16 +18,12 @@ export const addToWaitlist = async (email: string, name?: string, phone?: string
         error: 'Database connection error. Please try again later.' 
       };
     }
-
-    // Format phone number as a number if provided (or null if not)
-    const phoneNumber = phone ? parseFloat(phone.replace(/\D/g, '')) : null;
     
     // Insert the waitlist entry into Supabase
     const { data, error } = await supabase
       .from('waitlist')
       .insert({
-        email,
-        phonenumber: phoneNumber
+        email
       })
       .select();
     
