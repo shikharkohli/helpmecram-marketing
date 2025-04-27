@@ -14,7 +14,27 @@ const App = () => {
 
   // Add touch-action handling for better mobile experience
   useEffect(() => {
+    // Set viewport-fit=cover for modern mobile browsers (especially for notched phones)
+    const metaViewport = document.querySelector('meta[name="viewport"]');
+    if (metaViewport) {
+      metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no');
+    }
+    
+    // Improve touch handling
     document.documentElement.style.touchAction = 'manipulation';
+    
+    // Prevent bounce effect on iOS Safari
+    document.body.style.overscrollBehavior = 'none';
+    
+    // Fix viewport height issues on mobile
+    const setVH = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    
+    setVH();
+    window.addEventListener('resize', setVH);
+    return () => window.removeEventListener('resize', setVH);
   }, []);
 
   return (

@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Brain, Github, Instagram, Linkedin, Twitter } from "lucide-react";
 
@@ -7,7 +8,7 @@ export function Footer() {
   return (
     <footer className="bg-accent/10 py-12 md:py-16">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Brain className="h-6 w-6 text-primary" />
@@ -36,17 +37,17 @@ export function Footer() {
             </div>
           </div>
           
-          <div>
+          <div className="mt-2 sm:mt-0">
             <h3 className="font-semibold mb-4">Product</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Features</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">The Science</a></li>
+              <li><a href="#features" className="text-muted-foreground hover:text-primary transition-colors">Features</a></li>
+              <li><a href="#science" className="text-muted-foreground hover:text-primary transition-colors">The Science</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Pricing</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">FAQs</a></li>
+              <li><a href="#faq" className="text-muted-foreground hover:text-primary transition-colors">FAQs</a></li>
             </ul>
           </div>
           
-          <div>
+          <div className="mt-2 sm:mt-0">
             <h3 className="font-semibold mb-4">Company</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">About</a></li>
@@ -56,7 +57,7 @@ export function Footer() {
             </ul>
           </div>
           
-          <div>
+          <div className="mt-2 sm:mt-0">
             <h3 className="font-semibold mb-4">Legal</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</a></li>
@@ -67,7 +68,7 @@ export function Footer() {
         </div>
         
         <div className="pt-8 border-t border-border text-center text-muted-foreground">
-          <p>&copy; {year} InstaCram. All rights reserved.</p>
+          <p className="text-sm sm:text-base">&copy; {year} InstaCram. All rights reserved.</p>
         </div>
       </div>
     </footer>
