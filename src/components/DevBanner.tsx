@@ -26,7 +26,7 @@ export function DevBanner() {
         <div className="flex-1">
           <h3 className="font-semibold text-sm">Currently in Development</h3>
           <p className="text-sm text-muted-foreground mt-1">
-            HelpMeCram is under active development. Sign up to be notified when we launch!
+            InstaCram is under active development. Sign up to be notified when we launch!
           </p>
         </div>
         <Button 
