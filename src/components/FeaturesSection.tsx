@@ -1,8 +1,11 @@
 
 import { FeatureCard } from "./FeatureCard";
 import { Brain, Clock, Lightbulb, Map, Repeat, Sparkles } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function FeaturesSection() {
+  const isMobile = useIsMobile();
+  
   return (
     <section id="features" className="py-12 md:py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4">
@@ -20,42 +23,42 @@ export function FeaturesSection() {
             icon={Brain}
             title="Mind Palace Technique"
             description="Build powerful spatial memory frameworks to store and recall complex information with remarkable accuracy."
-            delay={100}
+            delay={isMobile ? 0 : 100}
           />
           
           <FeatureCard 
             icon={Lightbulb}
             title="Mnemonic Generation"
             description="Create custom memory aids, from acronyms to visual associations, tailored to your personal learning style."
-            delay={200}
+            delay={isMobile ? 0 : 200}
           />
           
           <FeatureCard 
             icon={Repeat}
             title="Spaced Repetition"
             description="Review content at scientifically optimized intervals to maximize long-term retention and minimize forgetting."
-            delay={300}
+            delay={isMobile ? 0 : 300}
           />
           
           <FeatureCard 
             icon={Map}
             title="Concept Mapping"
             description="Visualize connections between ideas and develop a holistic understanding of complex subject matter."
-            delay={400}
+            delay={isMobile ? 0 : 400}
           />
           
           <FeatureCard 
             icon={Clock}
             title="Time-Optimized Study"
             description="AI algorithms personalize your study schedule to maximize efficiency based on your learning patterns."
-            delay={500}
+            delay={isMobile ? 0 : 500}
           />
           
           <FeatureCard 
             icon={Sparkles}
             title="AI Content Transformation"
             description="Upload your notes or textbooks and let AI restructure them into formats optimized for maximum recall."
-            delay={600}
+            delay={isMobile ? 0 : 600}
           />
         </div>
       </div>

@@ -17,7 +17,7 @@ const App = () => {
     // Set viewport-fit=cover for modern mobile browsers (especially for notched phones)
     const metaViewport = document.querySelector('meta[name="viewport"]');
     if (metaViewport) {
-      metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no');
+      metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
     }
     
     // Improve touch handling
@@ -34,7 +34,22 @@ const App = () => {
     
     setVH();
     window.addEventListener('resize', setVH);
-    return () => window.removeEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
+    
+    // Prevent double-tap zoom on iOS
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (event) => {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
+    
+    return () => {
+      window.removeEventListener('resize', setVH);
+      window.removeEventListener('orientationchange', setVH);
+    };
   }, []);
 
   return (

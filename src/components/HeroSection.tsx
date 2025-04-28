@@ -55,6 +55,7 @@ export function HeroSection() {
       <a 
         href="#features" 
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-sm text-muted-foreground hover:text-primary transition-colors"
+        aria-label="Scroll to features"
       >
         <span className="mb-2">Learn More</span>
         <ChevronDown className="h-5 w-5 animate-bounce" />

@@ -4,21 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Brain, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
     
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-safe ${
       scrolled ? "bg-background/80 backdrop-blur-md shadow-sm" : "bg-transparent"
     }`}>
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -42,19 +44,19 @@ export function Header() {
           <ThemeToggle />
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="tap-target">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent className="w-[75vw]">
+            <SheetContent side={isMobile ? "bottom" : "right"} className={isMobile ? "h-[70vh] rounded-t-xl" : "w-[75vw]"}>
               <div className="flex flex-col gap-6 mt-8">
-                <nav className="flex flex-col items-start gap-4">
-                  <a href="#features" className="text-lg font-medium hover:text-primary transition-colors">Features</a>
-                  <a href="#science" className="text-lg font-medium hover:text-primary transition-colors">The Science</a>
-                  <a href="#faq" className="text-lg font-medium hover:text-primary transition-colors">FAQ</a>
+                <nav className="flex flex-col items-start gap-6">
+                  <a href="#features" className="text-lg font-medium hover:text-primary transition-colors tap-target">Features</a>
+                  <a href="#science" className="text-lg font-medium hover:text-primary transition-colors tap-target">The Science</a>
+                  <a href="#faq" className="text-lg font-medium hover:text-primary transition-colors tap-target">FAQ</a>
                 </nav>
-                <Button className="w-full">Join Waitlist</Button>
+                <Button className="w-full tap-target">Join Waitlist</Button>
               </div>
             </SheetContent>
           </Sheet>

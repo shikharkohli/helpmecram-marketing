@@ -8,8 +8,8 @@ export function Footer() {
   return (
     <footer className="bg-accent/10 py-12 md:py-16">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <Brain className="h-6 w-6 text-primary" />
               <span className="text-lg font-display font-semibold">InstaCram</span>
@@ -18,51 +18,51 @@ export function Footer() {
               Revolutionizing exam prep with AI and cognitive science. Cram smarter, not harder.
             </p>
             <div className="flex gap-4">
-              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
+              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 tap-target">
                 <Twitter className="h-4 w-4" />
                 <span className="sr-only">Twitter</span>
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
+              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 tap-target">
                 <Instagram className="h-4 w-4" />
                 <span className="sr-only">Instagram</span>
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
+              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 tap-target">
                 <Linkedin className="h-4 w-4" />
                 <span className="sr-only">LinkedIn</span>
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
+              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 tap-target">
                 <Github className="h-4 w-4" />
                 <span className="sr-only">GitHub</span>
               </Button>
             </div>
           </div>
           
-          <div className="mt-2 sm:mt-0">
+          <div>
             <h3 className="font-semibold mb-4">Product</h3>
             <ul className="space-y-3">
-              <li><a href="#features" className="text-muted-foreground hover:text-primary transition-colors">Features</a></li>
-              <li><a href="#science" className="text-muted-foreground hover:text-primary transition-colors">The Science</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Pricing</a></li>
-              <li><a href="#faq" className="text-muted-foreground hover:text-primary transition-colors">FAQs</a></li>
+              <li><a href="#features" className="text-muted-foreground hover:text-primary transition-colors block tap-target">Features</a></li>
+              <li><a href="#science" className="text-muted-foreground hover:text-primary transition-colors block tap-target">The Science</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors block tap-target">Pricing</a></li>
+              <li><a href="#faq" className="text-muted-foreground hover:text-primary transition-colors block tap-target">FAQs</a></li>
             </ul>
           </div>
           
-          <div className="mt-2 sm:mt-0">
+          <div>
             <h3 className="font-semibold mb-4">Company</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">About</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Blog</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Careers</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors block tap-target">About</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors block tap-target">Blog</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors block tap-target">Careers</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors block tap-target">Contact</a></li>
             </ul>
           </div>
           
-          <div className="mt-2 sm:mt-0">
+          <div>
             <h3 className="font-semibold mb-4">Legal</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Cookie Policy</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors block tap-target">Privacy Policy</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors block tap-target">Terms of Service</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors block tap-target">Cookie Policy</a></li>
             </ul>
           </div>
         </div>
